@@ -9,22 +9,16 @@ red = (255,0,0)
 green = (0,255,0)
 blue = (0,0,255)
 
-
 display_width = 800
 display_height = 600
 
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Snake')
 
-
-
 clock = pygame.time.Clock()
-
 block_size = 10
 FPS = 30
-
 font = pygame.font.SysFont(None, 25)
-
 
 def message_to_screen(msg,color):
     screen_text = font.render(msg, True, color)
@@ -32,10 +26,8 @@ def message_to_screen(msg,color):
 
 def gameLoop():
     gameExit = False
-
     lead_x = display_width/2
     lead_y = display_height/2
-
     lead_x_change = 0
     lead_y_change = 0
 
@@ -56,11 +48,8 @@ def gameLoop():
                 elif event.key == pygame.K_UP:
                     lead_y_change = -block_size
                     lead_x_change = 0
-
         if lead_x >= display_width or lead_x <= 0 or lead_y >= display_height or lead_y <= 0:
             gameExit = True
-
-
 
         lead_x += lead_x_change
         lead_y += lead_y_change
