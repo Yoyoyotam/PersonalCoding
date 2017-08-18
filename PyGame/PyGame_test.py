@@ -26,12 +26,26 @@ def message_to_screen(msg,color):
 
 def gameLoop():
     gameExit = False
+    gameOver = False
     lead_x = display_width/2
     lead_y = display_height/2
     lead_x_change = 0
     lead_y_change = 0
 
     while not gameExit:
+
+        while gameOver == True:
+            gameDisplay.fill(white)
+            message_to_screen("Game over, press C to play again or Q to quit", red)
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:
+                        gameExit = True
+                        gameOver = False
+                    if event.key == pygame.K_c:
+                        gameLoop()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameExit = True
@@ -49,7 +63,7 @@ def gameLoop():
                     lead_y_change = -block_size
                     lead_x_change = 0
         if lead_x >= display_width or lead_x <= 0 or lead_y >= display_height or lead_y <= 0:
-            gameExit = True
+            gameOver = True
 
         lead_x += lead_x_change
         lead_y += lead_y_change
@@ -59,9 +73,6 @@ def gameLoop():
         pygame.display.update()
         clock.tick(FPS)
 
-    message_to_screen("You lose", red)
-    pygame.display.update()
-    time.sleep(2)
     pygame.quit()
     quit()
 
