@@ -32,8 +32,9 @@ def gameLoop():
     lead_y = display_height/2
     lead_x_change = 0
     lead_y_change = 0
-    randAppleX = random.randrange(0, display_width - block_size)
-    randAppleY = random.randrange(0, display_height - block_size)
+
+    randAppleX = round(random.randrange(0, display_width - block_size)/10.0)*10.0
+    randAppleY = round(random.randrange(0, display_height - block_size)/10.0)*10.0
 
     while not gameExit:
 
@@ -65,11 +66,18 @@ def gameLoop():
                 elif event.key == pygame.K_UP:
                     lead_y_change = -block_size
                     lead_x_change = 0
+
+
+
         if lead_x >= display_width or lead_x <= 0 or lead_y >= display_height or lead_y <= 0:
             gameOver = True
 
         lead_x += lead_x_change
         lead_y += lead_y_change
+
+
+        if lead_x == randAppleX and lead_y == randAppleY:
+            print("yum")
 
         gameDisplay.fill(white)
         pygame.draw.rect(gameDisplay, red, [randAppleX, randAppleY, block_size, block_size])
