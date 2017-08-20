@@ -52,6 +52,8 @@ def gameLoop():
             gameDisplay.fill(white)
             message_to_screen("Game over, press C to play again or Q to quit", red)
             pygame.display.update()
+
+
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
@@ -78,6 +80,9 @@ def gameLoop():
                     lead_x_change = 0
 
 
+        for eachSegment in snakeList[:-1]:
+            if eachSegment == snakeHead:
+                gameOver = True
 
         if lead_x >= display_width or lead_x <= 0 or lead_y >= display_height or lead_y <= 0:
             gameOver = True
@@ -93,6 +98,9 @@ def gameLoop():
 
         if len(snakeList) > snakeLength:
             del snakeList[0]
+
+
+
 
         if lead_x == randAppleX and lead_y == randAppleY:
             randAppleX = round(random.randrange(0, display_width - block_size)/10.0)*10.0
