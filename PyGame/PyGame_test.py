@@ -34,6 +34,9 @@ def gameLoop():
     gameExit = False
     gameOver = False
 
+    snakeList = []
+    snakeLength = 1
+
     lead_x = display_width/2
     lead_y = display_height/2
 
@@ -82,15 +85,19 @@ def gameLoop():
         lead_x += lead_x_change
         lead_y += lead_y_change
 
-        snakeList = []
+
         snakeHead = []
         snakeHead.append(lead_x)
         snakeHead.append(lead_y)
         snakeList.append(snakeHead)
 
+        if len(snakeList) > snakeLength:
+            del snakeList[0]
+
         if lead_x == randAppleX and lead_y == randAppleY:
             randAppleX = round(random.randrange(0, display_width - block_size)/10.0)*10.0
             randAppleY = round(random.randrange(0, display_height - block_size)/10.0)*10.0
+            snakeLength += 1
 
         gameDisplay.fill(white)
         pygame.draw.rect(gameDisplay, red, [randAppleX, randAppleY, block_size, block_size])
@@ -98,6 +105,7 @@ def gameLoop():
         pygame.display.update()
         clock.tick(FPS)
 
+    print("Your snake was " + str(snakeLength) + " inches long")
     pygame.quit()
     quit()
 
